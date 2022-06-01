@@ -1,0 +1,167 @@
+
+===============================================================================
+++++++++++++++++++++++++++++++++++++++Create Table Query++++++++++++++++++++++++++
+==============================================================================
+create table department
+(dept_name varchar(20),
+building varchar(15),
+budget numeric(12,2),
+primary key (dept_name));
+
+
+create table course
+(course_id varchar(7),
+title varchar(50),
+dept_name varchar(20),
+credits numeric(2,0),
+primary key (course_id));
+
+=============================with foreign key constraint====================
+create table course
+(course_id varchar(7),
+title varchar(50),
+dept_name varchar(20),
+credits numeric(2,0),
+primary key (course_id),
+constraint fk_dept1 foreign key (dept_name) references department(dept_name));
+================================================================================
+
+create table instructor
+(ID varchar (5),
+name varchar (20) not null,
+dept_name varchar (20),
+salary numeric(8,2),
+primary key (ID),
+constraint fk_dept2 foreign key (dept_name) references department(dept_name));
+
+create table section
+(course_id varchar (8),
+sec_id varchar(8),
+semester varchar(6),
+year numeric(4,0),
+building varchar (15),
+room_number varchar (7),
+time_slot_id varchar (4),
+primary key (course_id, sec_id, semester, year),
+constraint fk_sec1 foreign key (course_id) references course (course_id));
+
+create table teaches
+(ID varchar (5),
+course_id varchar (8),
+sec_id varchar (8),
+semester varchar (6),
+year numeric (4,0),
+primary key (ID, course_id, sec_id, semester, year),
+constraint fk_sec2 foreign key (course_id, sec_id, semester, year) references section (course_id, sec_id, semester, year),
+constraint fk_ins1 foreign key (ID) references instructor(ID));
+
+=================================================================================
+++++++++++++++++++++++++++++Insert Data into Department Table+++++++++++++++++++++
+==================================================================================
+1.insert into department values("Computer", "RIC",200000);
+2.insert into department values("Electronics", "RIC",300000);
+3.insert into department values("Civil", "D",400000);
+4.insert into department values("Electrical", "B",100000);
+5.insert into department values("Mechanical", "A",200000);
+6.insert into department values("Geomatics", "Msc.",250000);
+7.insert into department values("Humanities", "C",50000);
+
+=================================================================================
+++++++++++++++++++++++++++++Insert Data into instructor Table+++++++++++++++++++++
+==================================================================================
+1.insert into instructor values("B105","Ram Sharma","Computer", 200000);
+2.insert into instructor values("B103","Binod Ram Shrestha","Computer", 150000);
+3.insert into instructor values("B102","Hari Prasad Baral","Electronics", 250000);
+4.insert into instructor values("B109","Dinesh Kumar Gupta","Civil",300000);
+5.insert into instructor values("B101","Santosh Karki","Electronics", 150000);
+6.insert into instructor values("B104","Bishnu Hari Poudel","Electrical", 150000);
+7.insert into instructor values("B108","Ashok Gharti Magar","Computer", 102000);
+8.insert into instructor values("B107","Himal Thapa","Computer", 107000);
+9.insert into instructor values("B106","Kiran Sharma","Electronics", 200000);
+10.insert into instructor values("B11","Dinesh Sharma","Humanities", 50000);
+
+=================================================================================
+++++++++++++++++++++++++++++Insert Data into course Table+++++++++++++++++++++
+==================================================================================
+1.insert into course values("CS104","Discrete Structure","Computer",3);
+2.insert into course values("CS105","Data Structure","Computer",4);
+3.insert into course values("EX104","Computer Graphics","Electronics",4);
+4.insert into course values("CS106","Database","Computer",5);
+5.insert into course values("EX105","Basic Electronics","Electronics",3);
+6.insert into course values("EL105","Basic Electrical","Electrical",3);
+7.insert into course values("CS107","Artificial Intelligence","Computer",4);
+8.insert into course values("SH104","Physics","Humanities",3);
+9.insert into course values("CS102","Theory of Computation","Computer",3);
+
+=================================================================================
+++++++++++++++++++++++++++++Insert Data into Teaches Table+++++++++++++++++++++
+==================================================================================
+insert into teaches values("B101","CS104","sec-A","Fourth",2020);
+insert into teaches values("B102","CS103","sec-B","Second",2019);
+insert into teaches values("B11","SH104","sec-A","Second",2019);
+insert into teaches values("B105","CS106","sec-B","Fifth",2020);
+insert into teaches values("B106","CS105","sec-A","Fourth",2020);
+insert into teaches values("B104","EL105","sec-A","First",2019);
+insert into teaches values("B105","CS107","sec-A","Sixth",2021);
+insert into teaches values("B107","CS102","sec-B","Third",2020);
+insert into teaches values("B107","EX104","sec-A","Fifth",2021);
+insert into teaches values("B108","CS104","sec-B","Fourth",2020);
+=================================================================================
+++++++++++++++++++++++++++++Insert Data into Section Table+++++++++++++++++++++
+==================================================================================
+insert into section values("CS104","sec-B","Fourth",2020,"RIC",203,4);
+insert into section values("CS105","sec-A","Fourth",2020,"RIC",204,5);
+insert into section values("CS102","sec-B","Third",2020,"RIC",102,3);
+insert into section values("CS106","sec-B","Fifth",2020,"A",103,1);
+insert into section values("EX104","sec-A","Fifth",2021,"D",303,2);
+insert into section values("EL105","sec-A","First",2019,"C",203,1);
+insert into section values("SH104","sec-A","Second",2019,"Msc.",103,2);
+insert into section values("CS106","sec-A","Fourth",2020,"RIC",103,3);
+insert into section values("CS107","sec-A","Sixth",2021,"D",203,4);
+insert into section values("EL105","sec-A","First",2020,"D",203,4);
+
+
+==========================================================================
++++++++++++++++++++SQL Working With Date Data Types++++++++++++++++++++++
+===========================================================================
+create table customer(
+	empID int,
+	fname varchar(40),
+	JoinDate   date,
+	accessDate datetime,
+	primary key(empID));
+
+
+insert into customer values(123,"Ram",'2013-3-23','2018-11-11 13:23:44');
+insert into customer values(133,"Shyam",'2008-4-13','2008-12-21 22:25:44');
+insert into customer values(223,"Hari",'2010-9-23','2018-11-11 13:23:44');
+insert into customer values(233,"Kiran",'2008-8-13','2013-8-21 22:25:44');
+insert into customer values(243,"Sita",'2013-3-23','2018-11-11 13:23:44');
+insert into customer values(143,"Gita",'2008-4-13','2008-12-21 22:25:44');
+insert into customer values(245,"Sita",'2010-9-23','2018-11-11 13:23:44');
+insert into customer values(273,"Nita",'2008-8-13','2013-8-21 22:25:44');
+
+1. Find the name and join date of customer with join date '2013-3-23'.
+	select fname, JoinDate
+        from customer
+        where JoinDate='2013-3-23';
+
+2. Find the name and access date of customer with join date '2008-12-21 22:25:44'.
+	select fname, JoinDate
+        from customer
+        where accessDate='2008-12-21 22:25:44';
+
+3. Find the name and join date of customer who join between 2010-1-11 to 2013-4-10.
+	select fname, JoinDate
+        from customer
+        where JoinDate between'2010-1-11'and '2013-4-10';
+
+4. Find the name and join date of customer who join on August.	
+	select fname, JoinDate
+        from customer
+        where MONTH(JoinDate)=8;
+
+5. Find the name and join date of customer who join After 2009.	
+	select fname, JoinDate
+        from customer
+        where year(JoinDate)>2009;
